@@ -5,15 +5,10 @@
 #cantidad de aprobados
 
 
-#menu
-def menu():
-    print("""
-Menu de Opciones
-1. ingresar nota
-2. Calcula estadisticas
-3. Resultados
-4. Salir
-""")
+from notas.menu import menu
+#from notas import *
+from notas.ingresa_notas import ingresar_notas
+from notas.calculos import calcular_estadisticas
     
 def main():
     notas = []
@@ -23,34 +18,21 @@ def main():
         opcion = (input("ingrese una opcion"))  #  falta tray set  poner solo numeros validos
         
         if opcion == "1":
-            n = input("ingresa las notas, separadas por espacio (7.0 3.4 4.4)")
-            n = n.split(" ")
-            notas = [float(nota) for nota in n ]
-            print(notas)
+            ingresar_notas()
+            print("notas ingresadas")
+
             #break
         elif opcion == "2":  # promedio, nota mayor, nota menor, aprobados
-            #print("2")
-            #break
+            if calcular_estadisticas(notas) == None:
+                print()
+                notas = ingresar_notas()
 
-
-            try:   
-                promedio = sum(notas) / len(notas)
-                mayor = max(notas)
-                menor = min(notas)
-                aprobado = [ a for a in notas if a >= 4.0]
-                print(aprobado)
-            except ZeroDivisionError:
-                print("no hay notas agregadas")
-
+            estadisticas = calcular_estadisticas(notas)
+            #print(notas)
 
         elif opcion == "3":
-            print(f"""
-                promedio : {promedio}  
-                minimo : {menor}
-                maximo : {mayor}
-                aprobado : {aprobado}
-                  
-            """)
+           estadisticas
+           print(estadisticas)
         
         else:
             print("terminado")
